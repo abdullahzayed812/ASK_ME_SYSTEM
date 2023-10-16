@@ -11,7 +11,7 @@ vector<string> readFileLines(string path);
 
 void writeFileLines(string path, vector<string> lines, bool append);
 
-vector<string> splitString(string str, string delimiter);
+vector<string> splitString(string line, string delimiter);
 
 int toNumber(string str);
 
