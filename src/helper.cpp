@@ -2,37 +2,46 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
+using std::cin;
+using std::cout;
 using std::fstream;
+using std::ios;
+using std::istringstream;
 using std::string;
 using std::vector;
 
-vector<string> readFileLines(string path) {
-  vector<string> lines;
+Helper::Helper(){};
+
+vector<string> Helper::readFileLines(string path) {
+  vector<string> result;
+
   fstream fileHandler(path.c_str());
 
   if (fileHandler.fail()) {
-    cout << "\n\nERROR: Can't open the file\n\n";
-    return lines;
+    cout << "\n\nError: Can't read this file\n\n";
+    return result;
   }
 
   string line;
+
   while (getline(fileHandler, line)) {
-    if (line.size() == 0) {
+    if (line.length() == 0) {
       continue;
     }
-    lines.push_back(line);
+
+    result.push_back(line);
   }
 
   fileHandler.close();
-
-  return lines;
+  return result;
 }
 
-void writeFileLines(string path, vector<string> lines, bool append = true) {
-  auto status = ios::in | ios::out | ios::append;
+void Helper::writeFileLines(string path, vector<string> lines, bool append) {
+  auto status = ios::in | ios::out | ios::app;
 
   if (!append) {
     status = ios::in | ios::out | ios::trunc;
@@ -41,51 +50,58 @@ void writeFileLines(string path, vector<string> lines, bool append = true) {
   fstream fileHandler(path.c_str(), status);
 
   if (fileHandler.fail()) {
-    cout << "\n\nERROR: Can't open the file\n\n";
+    cout << "\n\n:Error: Can't read this file\n\n";
+    return;
   }
 
   for (string line : lines) {
     fileHandler << line << "\n";
   }
+
+  fileHandler.close();
 }
 
-vector<string> splitString(string line, string delimiter = ",") {
-  vector<string> strs;
-  int pos;
-  string substring;
+vector<string> Helper::splitString(string str, string delimiter = ",") {
+  vector<string> result;
 
-  while ((pos = line.find(delimiter)) != -1) {
-    substring = line.substr(0, pos);
-    str.push_back(substring);
-    line.erase(0, pos + delimiter.length());
+  string subString;
+  int pos = (int)str.find(delimiter);
+
+  while (pos != -1) {
+    subString = str.substr(0, pos);
+    result.push_back(subString);
+    str.erase(0, pos + delimiter.length());
+    pos = (int)str.find(delimiter);
   }
 
-  strs.push_back(line);
-  return strs;
+  result.push_back(str);
+  return result;
 }
 
-int toNumber(string str) {
+int Helper::toNumber(string str) {
   istringstream iss(str);
-
   int num;
   iss >> num;
 
   return num;
 }
 
-int readIntegerInRange(int low, int high) {
-  int result;
+int Helper::readIntegerInRange(int low, int high) {
+  int value;
 
-  if ((result >= low) && (result <= high)) {
-    return result;
+  cout << "\nEnter number in range " << low << " - " << high << ": ";
+  cin >> value;
+
+  while ((value < low || value > high)) {
+    cout << "Error: invalid number...Try again\n";
+    cin >> value;
   }
 
-  cout << "ERROR: invalid number...Try again\n";
-  return readIntegerInRange(low, high);
+  return value;
 }
 
-int showReadMenu(vector<string> choices) {
-  cout << "\nMenu\n";
+int Helper::showReadMenu(vector<string> choices) {
+  cout << "\n\nMenu:\n";
 
   for (int i = 0; i < (int)choices.size(); i++) {
     cout << "\t" << i + 1 << ": " << choices[i] << "\n";
