@@ -3,7 +3,7 @@
 
 #include <string>
 
-// using std::string;
+using std::string;
 
 struct Question {
   int questionID;
@@ -12,7 +12,7 @@ struct Question {
   int toUserID;
   int isAnonymousQuestion;
   string questionText;
-  string answerText;
+  string questionAnswer;
 
   Question();
   Question(string line);
