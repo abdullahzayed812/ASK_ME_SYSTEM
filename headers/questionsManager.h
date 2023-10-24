@@ -6,7 +6,8 @@
 #include <utility>
 #include <vector>
 
-#include "../headers/user.h"
+#include "./question.h"
+#include "./user.h"
 
 using std::map;
 using std::pair;

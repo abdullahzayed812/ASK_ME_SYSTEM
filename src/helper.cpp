@@ -1,5 +1,7 @@
 #include "../headers/helper.h"
 
+#include <assert.h>
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -54,14 +56,14 @@ void Helper::writeFileLines(string path, vector<string> lines, bool append) {
     return;
   }
 
-  for (string line : lines) {
+  for (const string& line : lines) {
     fileHandler << line << "\n";
   }
 
   fileHandler.close();
 }
 
-vector<string> Helper::splitString(string str, string delimiter = ",") {
+vector<string> Helper::splitString(string str, string delimiter) {
   vector<string> result;
 
   string subString;

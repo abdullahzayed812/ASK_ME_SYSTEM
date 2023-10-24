@@ -1,5 +1,7 @@
 #include "../headers/user.h"
 
+#include <assert.h>
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -26,9 +28,9 @@ User::User(string line) {
 }
 
 string User::toString() {
-  ostringstream oss();
-  oss << this->userID << "," << this->username "," << this->password ","
-      << this->name "," << this->email << this->allowAnonymousQuestion;
+  ostringstream oss;
+  oss << this->userID << "," << this->username << "," << this->password << ","
+      << this->name << "," << this->email << this->allowAnonymousQuestions;
 
   return oss.str();
 }

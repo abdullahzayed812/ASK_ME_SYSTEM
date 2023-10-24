@@ -1,6 +1,7 @@
 #include "../headers/questionsManager.h"
 
 #include <algorithm>
+#include <iostream>
 #include <map>
 #include <string>
 #include <utility>
@@ -10,6 +11,8 @@
 #include "../headers/question.h"
 #include "../headers/user.h"
 
+using std::cin;
+using std::cout;
 using std::map;
 using std::max;
 using std::pair;
@@ -43,12 +46,23 @@ void QuestionsManager::loadDatabase() {
   }
 }
 
+void QuestionsManager::updateDatabase() {
+  Helper helper;
+  vector<string> lines;
+
+  for (pair<const int, Question>& pair : this->questionObjectsMap) {
+    lines.push_back(pair.second.toString());
+  }
+
+  helper.writeFileLines("questions.txt", lines, false);
+}
+
 void QuestionsManager::fillUserQuestions(User& user) {
   user.questionIDsThreadMap.clear();
   user.questionIDsFromMe.clear();
 
-  for (pair<int, vector<int>>& pair : this->questionIDsThreadsMap) {
-    for (int& questionID : pair.second) {
+  for (const pair<const int, vector<int>>& pair : this->questionIDsThreadsMap) {
+    for (const int& questionID : pair.second) {
       Question& question = this->questionObjectsMap[questionID];
 
       if (user.userID == question.fromUserID) {
@@ -76,8 +90,8 @@ void QuestionsManager::printQuestionsToUser(User& user) {
     return;
   }
 
-  for (pair<int, vector<int>>& pair : user.questionIDsThreadMap) {
-    for (int& questionID : pair.second) {
+  for (const pair<int, vector<int>>& pair : user.questionIDsThreadMap) {
+    for (const int& questionID : pair.second) {
       Question& question = this->questionObjectsMap[questionID];
 
       question.printFromQuestion();
@@ -192,7 +206,7 @@ void QuestionsManager::deleteQuestion(User& user) {
   } else {
     idsToRemove.push_back(questionID);
 
-    for (pair<int, vector<int>>& pair : this->questionIDsThreadsMap) {
+    for (pair<int, vector<int>> pair : this->questionIDsThreadsMap) {
       vector<int>& questionIDsThread = pair.second;
 
       for (int i = 0; i < (int)questionIDsThread.size(); i++) {
@@ -242,7 +256,7 @@ void QuestionsManager::askQuestion(User& user, pair<int, int> userInfo) {
 }
 
 void QuestionsManager::listFeed() {
-  for (pair<int, Question>& pair : this->questionObjectsMap) {
+  for (pair<int, Question> pair : this->questionObjectsMap) {
     Question& question = pair.second;
 
     if (question.questionAnswer == "") {
@@ -251,15 +265,4 @@ void QuestionsManager::listFeed() {
 
     question.printFeedQuestion();
   }
-}
-
-void QuestionsManager::updateDatabase() {
-  Helper helper;
-  vector<string> lines;
-
-  for (pair<int, Question>& pair : this->questionObjectsMap) {
-    lines.push_back(pair.second.toString());
-  }
-
-  helper.writeFileLines("questions.txt", lines, false);
 }

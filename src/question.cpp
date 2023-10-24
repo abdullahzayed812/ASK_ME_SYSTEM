@@ -1,10 +1,14 @@
 #include "../headers/question.h"
 
+#include <assert.h>
+
+#include <iostream>
 #include <sstream>
 #include <string>
 
 #include "../headers/helper.h"
 
+using std::cout;
 using std::ostringstream;
 using std::string;
 
@@ -29,7 +33,7 @@ Question::Question(string line) {
 }
 
 string Question::toString() {
-  ostringstream oss();
+  ostringstream oss;
   oss << this->questionID << "," << this->parentQuestionID << ","
       << this->fromUserID << "," << this->toUserID << ","
       << this->isAnonymousQuestion << "," << this->questionText << ","
