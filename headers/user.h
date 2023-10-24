@@ -14,7 +14,7 @@ struct User {
   string name;
   string email;
   int allowAnonymousQuestions;
-  vector<int> questionsIDFromMe;
+  vector<int> questionIDsFromMe;
   map<int, vector<int>> questionIDsThreadMap;
 
   User();

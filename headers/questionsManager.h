@@ -2,22 +2,28 @@
 #define QUESTION_MANAGER_CLASS_H 1
 
 #include <map>
+#include <string>
+#include <utility>
 #include <vector>
 
-// using std::map;
-// using std::vector;
+#include "../headers/user.h"
 
-struct QuestionManager {
-  map<int, vector<int>> questionIDQuestionThreadIDsMap;
-  map<int, Question> questionIDQuestionObjectMap;
-  int lastQuestionID;
+using std::map;
+using std::pair;
+using std::string;
+using std::vector;
 
-  QuestionManager();
+struct QuestionsManager {
+  map<int, vector<int>> questionIDsThreadsMap;
+  map<int, Question> questionObjectsMap;
+  int lastID;
+
+  QuestionsManager();
   void loadDatabase();
   void fillUserQuestions(User& user);
-  void printUserToQuestions(User& user);
-  void printUserFromQuestions(User& user);
-  int readQuestionIDAny(User& user);
+  void printQuestionsToUser(User& user);
+  void printQuestionsFromUser(User& user);
+  int readQuestionID(User& user);
   int readQuestionIDThread(User& user);
   void answerQuestion(User& user);
   void deleteQuestion(User& user);
