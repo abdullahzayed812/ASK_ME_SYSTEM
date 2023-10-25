@@ -25,10 +25,9 @@ void UsersManager::loadDatabase() {
   this->userObjectsMap.clear();
 
   Helper helper;
-
   vector<string> lines = helper.readFileLines("users.txt");
 
-  for (const string& line : lines) {
+  for (string line : lines) {
     User user(line);
 
     this->userObjectsMap[user.username] = user;

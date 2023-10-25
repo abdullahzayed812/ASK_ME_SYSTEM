@@ -96,6 +96,7 @@ int Helper::readIntegerInRange(int low, int high) {
 
   while ((value < low || value > high)) {
     cout << "Error: invalid number...Try again\n";
+    cout << "\nEnter number in range " << low << " - " << high << ": ";
     cin >> value;
   }
 

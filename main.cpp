@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "./headers/helper.h"
+#include "./headers/askSystem.h"
 
 using std::cin;
 using std::cout;
@@ -9,9 +9,8 @@ using std::string;
 using std::vector;
 
 int main() {
-  Helper helper;
+  AskSystem askSystem;
+  askSystem.run();
 
-  helper.showReadMenu({"Login", "Sign Up"});
-  system("pause");
   return 0;
 }

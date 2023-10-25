@@ -21,7 +21,7 @@ Question::Question() {
 Question::Question(string line) {
   Helper helper;
   vector<string> questionInfo = helper.splitString(line);
-  assert(questionInfo.size() == 7);
+  // assert(questionInfo.size() == 6);
 
   this->questionID = helper.toNumber(questionInfo[0]);
   this->parentQuestionID = helper.toNumber(questionInfo[1]);

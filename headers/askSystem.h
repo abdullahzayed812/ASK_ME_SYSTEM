@@ -4,6 +4,9 @@
 #include "./questionsManager.h"
 #include "./usersManager.h"
 
+// g++ .\main.cpp .\src\askSystem.cpp .\src\helper.cpp .\src\question.cpp
+// .\src\questionsManager.cpp .\src\user.cpp .\src\usersManager.cpp -o main
+
 struct AskSystem {
   UsersManager usersManager;
   QuestionsManager questionsManager;

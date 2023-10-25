@@ -30,7 +30,7 @@ void QuestionsManager::loadDatabase() {
 
   vector<string> lines = helper.readFileLines("questions.txt");
 
-  for (string& line : lines) {
+  for (string line : lines) {
     Question question(line);
 
     this->questionObjectsMap[question.questionID] = question;
@@ -43,6 +43,7 @@ void QuestionsManager::loadDatabase() {
       this->questionIDsThreadsMap[question.parentQuestionID].push_back(
           question.questionID);
     }
+    cout << line << "\n";
   }
 }
 
@@ -50,7 +51,7 @@ void QuestionsManager::updateDatabase() {
   Helper helper;
   vector<string> lines;
 
-  for (pair<const int, Question>& pair : this->questionObjectsMap) {
+  for (pair<int, Question> pair : this->questionObjectsMap) {
     lines.push_back(pair.second.toString());
   }
 
@@ -61,7 +62,7 @@ void QuestionsManager::fillUserQuestions(User& user) {
   user.questionIDsThreadMap.clear();
   user.questionIDsFromMe.clear();
 
-  for (const pair<const int, vector<int>>& pair : this->questionIDsThreadsMap) {
+  for (const pair<int, vector<int>>& pair : this->questionIDsThreadsMap) {
     for (const int& questionID : pair.second) {
       Question& question = this->questionObjectsMap[questionID];
 
@@ -218,7 +219,7 @@ void QuestionsManager::deleteQuestion(User& user) {
     }
   }
 
-  for (int id : idsToRemove) {
+  for (const int& id : idsToRemove) {
     this->questionObjectsMap.erase(questionID);
   }
 }
